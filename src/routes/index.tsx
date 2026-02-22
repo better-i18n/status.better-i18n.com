@@ -1,118 +1,127 @@
-import { createFileRoute } from '@tanstack/react-router'
-import {
-  Zap,
-  Server,
-  Route as RouteIcon,
-  Shield,
-  Waves,
-  Sparkles,
-} from 'lucide-react'
+import { createFileRoute } from "@tanstack/react-router"
+import { getStatusData } from "@/lib/status.server"
+import { StatusHeader } from "@/components/StatusHeader"
+import { ServiceCard } from "@/components/ServiceRow"
+import { IncidentList } from "@/components/IncidentList"
+import { Footer } from "@/components/Footer"
+import { useTranslations } from "@better-i18n/use-intl"
+import { MonitorRow } from "@/components/MonitorRow"
+import { Check, AlertTriangle, X, Wrench } from "lucide-react"
+import type { AggregateState } from "@/lib/betterstack"
 
-export const Route = createFileRoute('/')({ component: App })
+export const Route = createFileRoute("/")({
+  loader: () => getStatusData(),
+  component: StatusPage,
+})
 
-function App() {
-  const features = [
-    {
-      icon: <Zap className="w-12 h-12 text-cyan-400" />,
-      title: 'Powerful Server Functions',
-      description:
-        'Write server-side code that seamlessly integrates with your client components. Type-safe, secure, and simple.',
-    },
-    {
-      icon: <Server className="w-12 h-12 text-cyan-400" />,
-      title: 'Flexible Server Side Rendering',
-      description:
-        'Full-document SSR, streaming, and progressive enhancement out of the box. Control exactly what renders where.',
-    },
-    {
-      icon: <RouteIcon className="w-12 h-12 text-cyan-400" />,
-      title: 'API Routes',
-      description:
-        'Build type-safe API endpoints alongside your application. No separate backend needed.',
-    },
-    {
-      icon: <Shield className="w-12 h-12 text-cyan-400" />,
-      title: 'Strongly Typed Everything',
-      description:
-        'End-to-end type safety from server to client. Catch errors before they reach production.',
-    },
-    {
-      icon: <Waves className="w-12 h-12 text-cyan-400" />,
-      title: 'Full Streaming Support',
-      description:
-        'Stream data from server to client progressively. Perfect for AI applications and real-time updates.',
-    },
-    {
-      icon: <Sparkles className="w-12 h-12 text-cyan-400" />,
-      title: 'Next Generation Ready',
-      description:
-        'Built from the ground up for modern web applications. Deploy anywhere JavaScript runs.',
-    },
-  ]
+const BANNER_CONFIG: Record<
+  AggregateState,
+  { bgVar: string; borderVar: string }
+> = {
+  operational: {
+    bgVar: "var(--status-operational-bg)",
+    borderVar: "var(--status-operational-border)",
+  },
+  degraded: {
+    bgVar: "var(--status-degraded-bg)",
+    borderVar: "var(--status-degraded-border)",
+  },
+  downtime: {
+    bgVar: "var(--status-downtime-bg)",
+    borderVar: "var(--status-downtime-border)",
+  },
+  maintenance: {
+    bgVar: "var(--status-maintenance-bg)",
+    borderVar: "var(--status-maintenance-border)",
+  },
+}
+
+const HERO_ICONS: Record<AggregateState, React.ReactNode> = {
+  operational: <Check className="w-6 h-6" strokeWidth={2.5} />,
+  degraded: <AlertTriangle className="w-6 h-6" strokeWidth={2.5} />,
+  downtime: <X className="w-6 h-6" strokeWidth={2.5} />,
+  maintenance: <Wrench className="w-6 h-6" strokeWidth={2.5} />,
+}
+
+const HERO_ICON_COLORS: Record<AggregateState, string> = {
+  operational: "var(--status-operational)",
+  degraded: "var(--status-degraded)",
+  downtime: "var(--status-downtime)",
+  maintenance: "var(--status-maintenance)",
+}
+
+function StatusPage() {
+  const data = Route.useLoaderData()
+  const t = useTranslations()
+  const banner = BANNER_CONFIG[data.aggregateState]
+  const hasIncidents = data.ongoingIncidents.length > 0 || data.pastIncidents.length > 0
+
+  const formattedTime = new Date(data.fetchedAt).toLocaleTimeString(undefined, {
+    hour: "2-digit",
+    minute: "2-digit",
+  })
+
+  const allServices = data.sections.flatMap((s) => s.services)
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900">
-      <section className="relative py-20 px-6 text-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-blue-500/10 to-purple-500/10"></div>
-        <div className="relative max-w-5xl mx-auto">
-          <div className="flex items-center justify-center gap-6 mb-6">
-            <img
-              src="/tanstack-circle-logo.png"
-              alt="TanStack Logo"
-              className="w-24 h-24 md:w-32 md:h-32"
-            />
-            <h1 className="text-6xl md:text-7xl font-black text-white [letter-spacing:-0.08em]">
-              <span className="text-gray-300">TANSTACK</span>{' '}
-              <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
-                START
-              </span>
-            </h1>
-          </div>
-          <p className="text-2xl md:text-3xl text-gray-300 mb-4 font-light">
-            The framework for next generation AI applications
-          </p>
-          <p className="text-lg text-gray-400 max-w-3xl mx-auto mb-8">
-            Full-stack framework powered by TanStack Router for React and Solid.
-            Build modern applications with server functions, streaming, and type
-            safety.
-          </p>
-          <div className="flex flex-col items-center gap-4">
-            <a
-              href="https://tanstack.com/start"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-3 bg-cyan-500 hover:bg-cyan-600 text-white font-semibold rounded-lg transition-colors shadow-lg shadow-cyan-500/50"
-            >
-              Documentation
-            </a>
-            <p className="text-gray-400 text-sm mt-2">
-              Begin your TanStack Start journey by editing{' '}
-              <code className="px-2 py-1 bg-slate-700 rounded text-cyan-400">
-                /src/routes/index.tsx
-              </code>
-            </p>
-          </div>
-        </div>
-      </section>
+    <div className="min-h-screen bg-[var(--background)]">
+      <StatusHeader />
 
-      <section className="py-16 px-6 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((feature, index) => (
-            <div
-              key={index}
-              className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6 hover:border-cyan-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/10"
-            >
-              <div className="mb-4">{feature.icon}</div>
-              <h3 className="text-xl font-semibold text-white mb-3">
-                {feature.title}
-              </h3>
-              <p className="text-gray-400 leading-relaxed">
-                {feature.description}
-              </p>
-            </div>
-          ))}
+      <main className="max-w-2xl mx-auto px-4 py-8 space-y-6">
+        {/* Hero */}
+        <div className="text-center py-10">
+          <div
+            className="mx-auto mb-5 w-14 h-14 rounded-full flex items-center justify-center"
+            style={{
+              backgroundColor: banner.bgVar,
+              border: `1px solid ${banner.borderVar}`,
+              color: HERO_ICON_COLORS[data.aggregateState],
+            }}
+          >
+            {HERO_ICONS[data.aggregateState]}
+          </div>
+          <h1 className="text-2xl font-bold text-[var(--foreground)] mb-1.5">
+            {t(`status.${data.aggregateState}`)}
+          </h1>
+          <p className="text-sm text-[var(--muted-foreground)]">
+            {t("updated.at")} {formattedTime}
+          </p>
         </div>
-      </section>
+
+        {/* Service Cards */}
+        {allServices.length > 0 && (
+          <div className="rounded-xl border border-[var(--border)] divide-y divide-[var(--border)] overflow-hidden shadow-sm">
+            {allServices.map((service, index) => (
+              <ServiceCard key={service.id} service={service} defaultOpen={index === 0} />
+            ))}
+          </div>
+        )}
+
+        {/* Live Endpoints — R2 excluded */}
+        {(() => {
+          const visible = data.monitors.filter(
+            (m) => !m.name.toLowerCase().includes("r2") && !m.url.toLowerCase().includes(".r2."),
+          )
+          return visible.length > 0 ? (
+            <section>
+              <div className="rounded-xl border border-[var(--border)] divide-y divide-[var(--border)] overflow-hidden shadow-sm">
+                {visible.map((monitor) => (
+                  <MonitorRow key={monitor.id} monitor={monitor} />
+                ))}
+              </div>
+            </section>
+          ) : null
+        })()}
+
+        {hasIncidents && (
+          <IncidentList
+            ongoingIncidents={data.ongoingIncidents}
+            pastIncidents={data.pastIncidents}
+          />
+        )}
+      </main>
+
+      <Footer />
     </div>
   )
 }

@@ -1,15 +1,92 @@
 @import "tailwindcss";
+@source "../node_modules/@better-i18n/ui";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-status-operational: var(--status-operational);
+  --color-status-degraded: var(--status-degraded);
+  --color-status-downtime: var(--status-downtime);
+  --color-status-maintenance: var(--status-maintenance);
+  --color-status-not-monitored: var(--status-not-monitored);
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #000000;
+  --card: #ffffff;
+  --card-foreground: #000000;
+  --border: #eaeaea;
+  --muted: #fafafa;
+  --muted-foreground: #666666;
+  --primary: #000000;
+  --primary-foreground: #ffffff;
+
+  --status-operational: #22c55e;
+  --status-degraded: #f59e0b;
+  --status-downtime: #ef4444;
+  --status-maintenance: #8b5cf6;
+  --status-not-monitored: #d4d4d4;
+
+  --status-operational-bg: #f0fdf4;
+  --status-degraded-bg: #fffbeb;
+  --status-downtime-bg: #fef2f2;
+  --status-maintenance-bg: #f5f3ff;
+
+  --status-operational-border: #bbf7d0;
+  --status-degraded-border: #fde68a;
+  --status-downtime-border: #fecaca;
+  --status-maintenance-border: #ddd6fe;
+
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --destructive: #ef4444;
+  --info: #3b82f6;
+}
+
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --card: #111111;
+  --card-foreground: #ededed;
+  --border: #1f1f1f;
+  --muted: #111111;
+  --muted-foreground: #888888;
+  --primary: #ededed;
+  --primary-foreground: #000000;
+
+  --status-not-monitored: #333333;
+
+  --status-operational-bg: #0a1a0f;
+  --status-degraded-bg: #160f02;
+  --status-downtime-bg: #160606;
+  --status-maintenance-bg: #100020;
+
+  --status-operational-border: #1a4428;
+  --status-degraded-border: #5c3a0a;
+  --status-downtime-border: #5c1616;
+  --status-maintenance-border: #3a1466;
+
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --destructive: #ef4444;
+  --info: #60a5fa;
+}
 
 body {
-  @apply m-0;
+  @apply m-0 bg-[var(--background)] text-[var(--foreground)];
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
 }
