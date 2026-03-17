@@ -27,8 +27,16 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 
   head: ({ loaderData }) => {
     const messages = loaderData?.messages ?? {}
-    const title = (messages as Record<string, string>)["meta.status.title"] ?? "Better I18N Status"
-    const description = (messages as Record<string, string>)["meta.status.description"] ?? ""
+
+    function getMsg(path: string): string | undefined {
+      return path.split(".").reduce<unknown>(
+        (cur, key) => cur && typeof cur === "object" ? (cur as Record<string, unknown>)[key] : undefined,
+        messages
+      ) as string | undefined
+    }
+
+    const title       = getMsg("meta.status.title")       ?? "Better I18N Status"
+    const description = getMsg("meta.status.description") ?? ""
 
     return {
       meta: [
@@ -40,13 +48,22 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         { property: "og:url", content: "https://status.better-i18n.com" },
         { property: "og:title", content: title },
         { property: "og:description", content: description },
-        { name: "twitter:card", content: "summary" },
+        { property: "og:image", content: "https://og.better-i18n.com/og/status?title=Better+I18N+Status" },
+        { property: "og:image:width", content: "1200" },
+        { property: "og:image:height", content: "630" },
+        { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: description },
+        { name: "twitter:image", content: "https://og.better-i18n.com/og/status?title=Better+I18N+Status" },
       ],
       links: [
         { rel: "stylesheet", href: appCss },
         { rel: "canonical", href: "https://status.better-i18n.com" },
+        { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+        { rel: "icon", type: "image/png", sizes: "32x32", href: "/favicon-32x32.png" },
+        { rel: "icon", type: "image/png", sizes: "16x16", href: "/favicon-16x16.png" },
+        { rel: "apple-touch-icon", sizes: "180x180", href: "/apple-touch-icon.png" },
+        { rel: "manifest", href: "/manifest.json" },
       ],
     }
   },

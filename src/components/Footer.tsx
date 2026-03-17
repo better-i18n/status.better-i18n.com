@@ -27,8 +27,13 @@ export function Footer() {
           >
             {t("footer.localization")}
             <img
-              src="https://better-i18n.com/cdn-cgi/image/width=32/logo.png"
-              className="w-3.5 h-3.5"
+              src="/brand/logo.svg"
+              className="w-3.5 h-3.5 dark:hidden"
+              alt=""
+            />
+            <img
+              src="/brand/logo-dark.svg"
+              className="w-3.5 h-3.5 hidden dark:block"
               alt=""
             />
             <span className="font-medium text-[var(--foreground)]">Better I18N</span>
