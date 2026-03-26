@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react"
 import { ChevronDown } from "lucide-react"
-import { useLanguages } from "@better-i18n/use-intl"
+import { useLanguages, useTranslations } from "@better-i18n/use-intl"
 import { useLocaleContext } from "@/lib/locale-context"
 
 export function LocaleDropdown() {
+  const t = useTranslations()
   const { languages, isLoading } = useLanguages()
   const { locale, setLocale } = useLocaleContext()
   const [open, setOpen] = useState(false)
@@ -34,7 +35,7 @@ export function LocaleDropdown() {
       {open && (
         <div className="absolute right-0 bottom-full mb-1 bg-[var(--card)] border border-[var(--border)] rounded-lg shadow-lg overflow-hidden min-w-[130px] z-10">
           {isLoading ? (
-            <div className="px-3 py-2 text-xs text-[var(--muted-foreground)]">Loading…</div>
+            <div className="px-3 py-2 text-xs text-[var(--muted-foreground)]">{t("loading", { defaultValue: "Loading…" })}</div>
           ) : (
             languages.map((lang) => (
               <button

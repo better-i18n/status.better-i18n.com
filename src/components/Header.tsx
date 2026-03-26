@@ -1,9 +1,11 @@
 import { Link } from '@tanstack/react-router'
+import { useTranslations } from '@better-i18n/use-intl'
 
 import { useState } from 'react'
 import { Home, Menu, X } from 'lucide-react'
 
 export default function Header() {
+  const t = useTranslations()
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -38,7 +40,7 @@ export default function Header() {
         }`}
       >
         <div className="flex items-center justify-between p-4 border-b border-gray-700">
-          <h2 className="text-xl font-bold">Navigation</h2>
+          <h2 className="text-xl font-bold">{t("nav.title", { defaultValue: "Navigation" })}</h2>
           <button
             onClick={() => setIsOpen(false)}
             className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
@@ -59,7 +61,7 @@ export default function Header() {
             }}
           >
             <Home size={20} />
-            <span className="font-medium">Home</span>
+            <span className="font-medium">{t("nav.home", { defaultValue: "Home" })}</span>
           </Link>
 
           {/* Demo Links Start */}

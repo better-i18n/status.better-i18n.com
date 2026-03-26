@@ -1,4 +1,7 @@
+import { useTranslations } from "@better-i18n/use-intl"
+
 export function StatusHeader() {
+  const t = useTranslations()
   return (
     <header className="w-full">
       <div className="max-w-2xl mx-auto px-4 h-14 flex items-center justify-center gap-2">
@@ -20,7 +23,7 @@ export function StatusHeader() {
           />
           <span className="text-sm font-semibold text-[var(--foreground)]">Better I18N</span>
           <span className="text-[var(--border)] select-none">/</span>
-          <span className="text-sm text-[var(--muted-foreground)]">Status</span>
+          <span className="text-sm text-[var(--muted-foreground)]">{t("status.title", { defaultValue: "Status" })}</span>
         </a>
       </div>
     </header>
