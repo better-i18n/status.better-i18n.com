@@ -11,3 +11,9 @@ dist-ssr
 .vinxi
 __unconfig*
 todos.json
+
+# Graphify knowledge graph (generated)
+graphify-out/
+
+# OpenLogs (dev server logs for AI)
+.openlogs/

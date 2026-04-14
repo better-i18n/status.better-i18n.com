@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+.wrangler/
+
+# Build outputs
+dist/
+
+# Lock files
+pnpm-lock.yaml
+
+# Generated
+*.d.ts
+
+# Static assets
+public/
+
+# Config files
+vite.config.ts
+tsconfig.json
+eslint.config.js
+prettier.config.js
