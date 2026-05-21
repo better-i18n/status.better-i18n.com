@@ -17,3 +17,6 @@ graphify-out/
 
 # OpenLogs (dev server logs for AI)
 .openlogs/
+
+# Claude Code workspace — never commit hooks/settings (Shai-Hulud supply-chain vector)
+.claude/
