@@ -3,6 +3,9 @@
   "name": "better-i18n-status",
   // Better i18n Org. Pinned so a deploy can never land on the old personal account.
   "account_id": "453acd4b6e3ad2a6a652c9a51b9a7fc3",
+  // TEMPORARY true: the old account's migration proxy reaches this worker on
+  // workers.dev. With a route set, wrangler 4 turns workers.dev off by default.
+  "workers_dev": true,
   "compatibility_date": "2025-09-02",
   "compatibility_flags": ["nodejs_compat"],
   // Pages + the every-minute uptime cron (src/lib/checks.ts).
