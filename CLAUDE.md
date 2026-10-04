@@ -2,7 +2,7 @@
 
 ## What This Is
 
-Public status page for Better i18n (`status.better-i18n.com`). Displays service health, uptime monitors, and incidents from BetterStack. Dogfoods `@better-i18n/use-intl` as a best-practice reference implementation.
+Public status page for Better i18n (`status.better-i18n.com`). Displays service health, uptime and incidents from our own every-minute checks (`src/lib/checks.ts`, D1 `better-i18n-status`). BetterStack was dropped on 2026-10-04: its account sits on an email we can no longer open. Dogfoods `@better-i18n/use-intl` as a best-practice reference implementation.
 
 ## AI Assistant Guidelines
 
@@ -24,7 +24,7 @@ Public status page for Better i18n (`status.better-i18n.com`). Displays service 
 - **Styling:** Tailwind CSS v4
 - **React:** v19
 - **i18n:** `@better-i18n/use-intl` + `@better-i18n/core`
-- **Data:** BetterStack API for status/monitors/incidents
+- **Data:** own checks: cron `* * * * *` in `src/server.ts` → D1 (`migrations/`). Alerts by Brevo email to `ALERT_EMAIL` after 2 failures in a row. Limit: runs on Cloudflare, so a Cloudflare-wide outage is not alerted
 
 ## Client-Side Locale Pattern (Key Difference from Helpcenter)
 
@@ -106,7 +106,9 @@ status/
     └── lib/
         ├── locale-context.tsx   # React context: { locale, setLocale }
         ├── i18n.server.ts       # Server: getLocaleAndMessages() via Accept-Language
-        ├── betterstack.ts       # BetterStack API types & fetching
+        ├── checks.ts            # Uptime checks, state machine, alerts (cron)
+        ├── status-page.ts       # D1 rows → page model (pure, tested)
+        ├── types.ts             # Page model types
         └── status.server.ts     # Server fn: getStatusData()
 ```
 

@@ -1,9 +1,17 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "better-i18n-status",
+  // Better i18n Org. Pinned so a deploy can never land on the old personal account.
+  "account_id": "453acd4b6e3ad2a6a652c9a51b9a7fc3",
   "compatibility_date": "2025-09-02",
   "compatibility_flags": ["nodejs_compat"],
-  "main": "@tanstack/react-start/server-entry",
+  // Pages + the every-minute uptime cron (src/lib/checks.ts).
+  "main": "src/server.ts",
+  "triggers": { "crons": ["* * * * *"] },
+  "d1_databases": [
+    { "binding": "DB", "database_name": "better-i18n-status", "database_id": "e6dd0906-ddfb-46b2-af9b-c5b91164c2aa", "migrations_dir": "migrations" }
+  ],
+  "vars": { "EMAIL_FROM": "noreply@better-i18n.com" },
   "route": {
     "pattern": "status.better-i18n.com/*",
     "zone_name": "better-i18n.com"

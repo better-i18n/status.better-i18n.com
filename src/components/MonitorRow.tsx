@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { ChevronDown, CheckCircle2, XCircle, AlertCircle, Wrench, PauseCircle, Clock } from "lucide-react"
 import { useTranslations, useFormatter } from "@better-i18n/use-intl"
-import type { ParsedMonitor } from "@/lib/betterstack"
+import type { ParsedMonitor } from "@/lib/types"
 import { UptimeBar } from "./UptimeBar"
 
 const STATUS_CONFIG: Record<

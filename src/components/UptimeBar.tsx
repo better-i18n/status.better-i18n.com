@@ -1,5 +1,5 @@
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@better-i18n/ui/components/tooltip"
-import type { AggregateState } from "@/lib/betterstack"
+import type { AggregateState } from "@/lib/types"
 
 interface UptimeBarProps {
   history: Array<{ day: string; status: AggregateState | "not_monitored" }>

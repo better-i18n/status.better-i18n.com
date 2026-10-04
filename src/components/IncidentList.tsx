@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useTranslations } from "@better-i18n/use-intl"
 import { ChevronDown, ChevronUp, AlertCircle, AlertTriangle } from "lucide-react"
-import type { ParsedIncident } from "@/lib/betterstack"
+import type { ParsedIncident } from "@/lib/types"
 
 interface IncidentItemProps {
   incident: ParsedIncident

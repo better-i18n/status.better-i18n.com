@@ -7,7 +7,7 @@ import { Footer } from "@/components/Footer"
 import { useTranslations } from "@better-i18n/use-intl"
 import { MonitorRow } from "@/components/MonitorRow"
 import { Check, AlertTriangle, X, Wrench } from "lucide-react"
-import type { AggregateState } from "@/lib/betterstack"
+import type { AggregateState } from "@/lib/types"
 
 export const Route = createFileRoute("/")({
   loader: () => getStatusData(),

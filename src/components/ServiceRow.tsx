@@ -2,7 +2,7 @@ import { useState } from "react"
 import { ChevronDown, CheckCircle2, AlertTriangle, XCircle, Wrench } from "lucide-react"
 import { useTranslations, useFormatter } from "@better-i18n/use-intl"
 import { UptimeBar } from "./UptimeBar"
-import type { ParsedService, AggregateState } from "@/lib/betterstack"
+import type { ParsedService, AggregateState } from "@/lib/types"
 
 const STATUS_COLORS: Record<AggregateState, string> = {
   operational: "var(--status-operational)",

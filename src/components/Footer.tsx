@@ -10,16 +10,6 @@ export function Footer() {
       <div className="max-w-2xl mx-auto px-4 flex items-center justify-between">
         <div className="flex items-center gap-4 text-xs text-[var(--muted-foreground)]">
           <a
-            href="https://betterstack.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1 cursor-pointer hover:text-[var(--foreground)] transition-colors"
-          >
-            {t("footer.monitoring")}
-            <span className="font-medium text-[var(--foreground)]">BetterStack</span>
-          </a>
-          <span>·</span>
-          <a
             href="https://better-i18n.com"
             target="_blank"
             rel="noopener noreferrer"
